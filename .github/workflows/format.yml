@@ -10,6 +10,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+
+    - name: Install clang-format
+      run: sudo apt-get install clang-format
+      
     - name: Run git clang-format
-      run: |
-        git clang-format --diff master |  grep -q 'no modified files to format'
+      run: git clang-format --diff master |  grep -q 'no modified files to format'
