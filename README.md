@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/CI/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
+
 # Format.cmake
 
 clang-format for CMake
