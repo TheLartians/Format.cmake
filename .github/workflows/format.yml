@@ -27,7 +27,4 @@ jobs:
       run: cmake --build build --target fix-format
 
     - name: Check fixed format
-      run: "cmake --build build --target check-format"
-
-    - name: Check fixed format
       run: cmake --build build --target check-format && ! git diff --exit-code
