@@ -1,4 +1,4 @@
-name: CI
+name: CI-mac
 
 on:
   - pull_request
@@ -6,14 +6,16 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macOS-10.14
     
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install clang-format
-      run: |
-        sudo apt-get install clang-format-6.0
+    # - name: Install clang-format
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get upgrade
+    #     sudo apt-get install clang-format
 
     - name: Run git clang-format
       run: git clang-format --diff master |  grep -q 'no modified files to format'
