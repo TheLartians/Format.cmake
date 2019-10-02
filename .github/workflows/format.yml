@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  - pull_request
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run git clang-format
+      run: |
+        git clang-format --diff master |  grep -q 'no modified files to format'
