@@ -7,6 +7,8 @@
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 #
 #===------------------------------------------------------------------------===#
+#
+# Modified by Lars Melchior to allow git tree objects 
 
 r"""
 clang-format git integration
