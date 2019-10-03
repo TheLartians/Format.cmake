@@ -16,7 +16,7 @@ To run the targets, invoke CMake with `cmake --build <build directory> --target 
 
 ## Demo
 
-![](https://github.com/TheLartians/Format.cmake/blob/demo/demo.gif)
+![](https://user-images.githubusercontent.com/4437447/66123312-31ec3500-e5d1-11e9-8404-492b8eff8511.gif)
 
 ## How to integrate
 
