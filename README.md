@@ -14,6 +14,10 @@ Format.cmake adds three additional targets to your CMake project.
 
 To run the targets, invoke CMake with `cmake --build <build directory> --target <target name>`.
 
+## Demo
+
+![](https://github.com/TheLartians/Format.cmake/blob/demo/demo.gif)
+
 ## How to integrate
 
 ### Using [CPM.cmake](https://github.com/TheLartians/CPM) (recomended)
