@@ -20,7 +20,7 @@ To run the targets, invoke CMake with `cmake --build <build directory> --target 
 
 ## How to integrate
 
-### Using [CPM.cmake](https://github.com/TheLartians/CPM) (recomended)
+### Using [CPM.cmake](https://github.com/TheLartians/CPM) (recommended)
 
 Run the following from the project's root directory to add CPM to your project.
 
