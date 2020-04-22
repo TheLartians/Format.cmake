@@ -1,5 +1,5 @@
 
-find_program(CLANG_FORMAT_PROGRAM clang-format)
+find_program(CLANG_FORMAT_PROGRAM clang-format${CMAKE_EXECUTABLE_SUFFIX})
 
 if (CLANG_FORMAT_PROGRAM)
   set(CLANG_FORMAT_COMMAND python ${CMAKE_CURRENT_LIST_DIR}/git-clang-format.py --binary=${CLANG_FORMAT_PROGRAM})
