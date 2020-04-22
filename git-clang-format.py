@@ -123,6 +123,8 @@ def main():
                  help='revision from which to compute the diff')
   p.add_argument('ignored', nargs='*', metavar='<file>...',
                  help='if specified, only consider differences in these files')
+  p.add_argument('-c', '--ci', action='store_true',
+                 help='error on format changes')
   opts = p.parse_args(argv)
 
   opts.verbose -= opts.quiet
@@ -174,6 +176,8 @@ def main():
       print('clang-format did not modify any files')
   elif opts.diff:
     print_diff(old_tree, new_tree)
+  elif opts.ci:
+    raise ValueError("style changes required")
   else:
     changed_files = apply_changes(old_tree, new_tree, force=opts.force,
                                   patch_mode=opts.patch)
