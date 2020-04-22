@@ -15,7 +15,7 @@ jobs:
       shell: pwsh
       run: |
         choco install llvm -y
-        refreshenv
+        echo "::add-path::C:\\Program Files\\LLVM\\bin"
 
     - name: Configure
       run: cmake -Htest -Bbuild
