@@ -1,0 +1,30 @@
+name: Unix
+
+on:
+  - push
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install clang-format
+      run: brew install clang-format
+
+    - name: Configure
+      run: cmake -Htest -Bbuild
+
+    - name: Run format
+      run: "cmake --build build --target format"
+
+    - name: Check format
+      run: "! cmake --build build --target check-format"
+
+    - name: Fix format
+      run: cmake --build build --target fix-format
+
+    - name: Check fixed format
+      run: cmake --build build --target check-format && ! git diff --exit-code

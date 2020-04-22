@@ -1,4 +1,5 @@
-[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/CI/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
+[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/Unix/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
+[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/Windows/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
 
 # Format.cmake
 
