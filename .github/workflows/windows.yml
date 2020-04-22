@@ -1,4 +1,4 @@
-name: CI
+name: Windows
 
 on:
   - push
@@ -6,13 +6,13 @@ on:
 jobs:
   build:
 
-    runs-on: macOS-10.14
+    runs-on: windows-latest
     
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install clang-format
-      run: brew install clang-format
+    # - name: Install clang-format
+    #   run: brew install clang-format
 
     - name: Configure
       run: cmake -Htest -Bbuild

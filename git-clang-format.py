@@ -8,7 +8,7 @@
 #
 #===------------------------------------------------------------------------===#
 #
-# Modified by Lars Melchior to allow git tree objects 
+# Modified by Lars Melchior to allow git tree objects and added `ci` flag
 
 r"""
 clang-format git integration
