@@ -7,9 +7,9 @@ add_custom_target(format
 )
 
 add_custom_target(check-format
-  COMMAND ${CLANG_FORMAT_COMMAND} --diff ${GIT_EMPTY_TREE_HASH} |  grep -q 'clang-format did not modify any files'
+  COMMAND ${CLANG_FORMAT_COMMAND} --ci ${GIT_EMPTY_TREE_HASH}
 )
 
 add_custom_target(fix-format
-  COMMAND ${CLANG_FORMAT_COMMAND} ${GIT_EMPTY_TREE_HASH}
+  COMMAND ${CLANG_FORMAT_COMMAND} ${GIT_EMPTY_TREE_HASH} -f
 )
