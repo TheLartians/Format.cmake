@@ -37,7 +37,7 @@ include(cmake/CPM.cmake)
 CPMAddPackage(
   NAME Format.cmake
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  VERSION 1.1
+  VERSION 1.2
 )
 ```
 
