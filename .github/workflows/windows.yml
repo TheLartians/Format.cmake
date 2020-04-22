@@ -12,7 +12,6 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Install clang-format
-      shell: pwsh
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
