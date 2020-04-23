@@ -20,5 +20,14 @@ if (CLANG_FORMAT_PROGRAM)
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   )
 else()
-  message(STATUS "clang-format not found: not adding Format.cmake targets")
+  message(STATUS "clang-format not found: adding dummy Format.cmake targets")
+
+  set(CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS
+    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: clang-format not found"
+    COMMAND ${CMAKE_COMMAND} -E false
+  )
+
+  add_custom_target(format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
+  add_custom_target(check-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
+  add_custom_target(fix-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
 endif()
