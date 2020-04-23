@@ -23,10 +23,12 @@ jobs:
       run: "cmake --build build --target format"
 
     - name: Check format
-      run: "!(cmake --build build --target check-format)"
+      shell: powershell
+      run: "-not (cmake --build build --target check-format)"
 
     - name: Fix format
       run: cmake --build build --target fix-format
 
     - name: Check fixed format
-      run: cmake --build build --target check-format && !(git diff --exit-code)
+      shell: powershell
+      run: cmake --build build --target check-format -and (-not (git diff --exit-code))
