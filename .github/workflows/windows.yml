@@ -24,11 +24,15 @@ jobs:
 
     - name: Check format
       shell: powershell
-      run: "-not (cmake --build build --target check-format)"
+      run: |
+        function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
+        -not (Get-ExitBoolean (cmake --build build --target check-format))
 
     - name: Fix format
       run: cmake --build build --target fix-format
 
     - name: Check fixed format
       shell: powershell
-      run: cmake --build build --target check-format -and (-not (git diff --exit-code))
+      run: |
+        function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
+        (Get-ExitBoolean (cmake --build build --target check-format)) -and (-not (Get-ExitBoolean (git diff --exit-code)))
