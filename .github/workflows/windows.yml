@@ -17,24 +17,21 @@ jobs:
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
 
     - name: Configure
+      shell: bash
       run: cmake -Htest -Bbuild
 
     - name: Run format
+      shell: bash
       run: "cmake --build build --target format"
 
     - name: Check format
-      shell: powershell
-      run: |
-        function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
-        Set-Alias geb Get-ExitBoolean
-        -not (geb cmake --build build --target check-format)
+      shell: bash
+      run: "! cmake --build build --target check-format"
 
     - name: Fix format
+      shell: bash
       run: cmake --build build --target fix-format
 
     - name: Check fixed format
-      shell: powershell
-      run: |
-        function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
-        Set-Alias geb Get-ExitBoolean
-        (geb cmake --build build --target check-format) -and (-not (geb (git diff --exit-code)))
+      shell: bash
+      run: cmake --build build --target check-format && ! git diff --exit-code
