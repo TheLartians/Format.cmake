@@ -27,7 +27,7 @@ jobs:
       run: |
         function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
         Set-Alias geb Get-ExitBoolean
-        -not (geb (cmake --build build --target check-format))
+        -not (geb cmake --build build --target check-format)
 
     - name: Fix format
       run: cmake --build build --target fix-format
@@ -35,6 +35,6 @@ jobs:
     - name: Check fixed format
       shell: powershell
       run: |
-        function geb($cmd) { & $cmd | Out-Null; $? }
+        function Get-ExitBoolean($cmd) { & $cmd | Out-Null; $? }
         Set-Alias geb Get-ExitBoolean
-        (geb (cmake --build build --target check-format)) -and (-not (geb (git diff --exit-code)))
+        (geb cmake --build build --target check-format) -and (-not geb (git diff --exit-code))
