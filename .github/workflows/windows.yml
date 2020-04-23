@@ -1,0 +1,37 @@
+name: Windows
+
+on:
+  - push
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install clang-format
+      run: |
+        choco install llvm -y
+        echo "::add-path::C:\\Program Files\\LLVM\\bin"
+
+    - name: Configure
+      shell: bash
+      run: cmake -Htest -Bbuild
+
+    - name: Run format
+      shell: bash
+      run: "cmake --build build --target format"
+
+    - name: Check format
+      shell: bash
+      run: "! cmake --build build --target check-format"
+
+    - name: Fix format
+      shell: bash
+      run: cmake --build build --target fix-format
+
+    - name: Check fixed format
+      shell: bash
+      run: cmake --build build --target check-format && ! git diff --exit-code

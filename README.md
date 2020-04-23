@@ -1,4 +1,5 @@
-[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/CI/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
+[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/Unix/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
+[![Actions Status](https://github.com/TheLartians/Format.cmake/workflows/Windows/badge.svg)](https://github.com/TheLartians/Format.cmake/actions)
 
 # Format.cmake
 
@@ -37,7 +38,7 @@ include(cmake/CPM.cmake)
 CPMAddPackage(
   NAME Format.cmake
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  VERSION 1.2
+  VERSION 1.3
 )
 ```
 
