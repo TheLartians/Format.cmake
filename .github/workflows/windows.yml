@@ -13,8 +13,8 @@ jobs:
 
     - name: Install clang-format
       run: |
-        choco install llvm
-        refreshenv
+        choco install llvm -y
+        echo "::add-path::C:\\Program Files\\LLVM\\bin"
 
     - name: Configure
       run: cmake -Htest -Bbuild
@@ -23,10 +23,10 @@ jobs:
       run: "cmake --build build --target format"
 
     - name: Check format
-      run: "! cmake --build build --target check-format"
+      run: "!(cmake --build build --target check-format)"
 
     - name: Fix format
       run: cmake --build build --target fix-format
 
     - name: Check fixed format
-      run: cmake --build build --target check-format && ! git diff --exit-code
+      run: cmake --build build --target check-format && !(git diff --exit-code)
