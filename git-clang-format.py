@@ -8,7 +8,10 @@
 #
 #===------------------------------------------------------------------------===#
 #
-# Modified by Lars Melchior to allow git tree objects and added `ci` flag
+# Contains following modifications by Lars Melchior:
+# - allow git tree objects to compare to unrelated trees
+# - added `ci` flag to error on format check
+# - ignore file mode in `compute_diff`
 
 r"""
 clang-format git integration
@@ -290,7 +293,7 @@ def compute_diff(commits, files):
   git_tool = 'diff-index'
   if len(commits) > 1:
     git_tool = 'diff-tree'
-  cmd = ['git', git_tool, '-p', '-U0'] + commits + ['--']
+  cmd = ['git', '-c', 'core.fileMode=false', git_tool, '-p', '-U0'] + commits + ['--']
   cmd.extend(files)
   p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
   p.stdin.close()
