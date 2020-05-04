@@ -495,7 +495,7 @@ def print_diff(old_tree, new_tree):
   # We also only print modified files since `new_tree` only contains the files
   # that were modified, so unmodified files would show as deleted without the
   # filter.
-  subprocess.check_call(['git', 'diff', '--diff-filter=M', old_tree, new_tree,
+  subprocess.check_call(['git', '-c', 'core.fileMode=false', 'diff', '--diff-filter=M', old_tree, new_tree,
                          '--'])
 
 
@@ -504,11 +504,11 @@ def apply_changes(old_tree, new_tree, force=False, patch_mode=False):
 
   Bails if there are local changes in those files and not `force`.  If
   `patch_mode`, runs `git checkout --patch` to select hunks interactively."""
-  changed_files = run('git', 'diff-tree', '--diff-filter=M', '-r', '-z',
+  changed_files = run('git', '-c', 'core.fileMode=false', 'diff-tree', '--diff-filter=M', '-r', '-z',
                       '--name-only', old_tree,
                       new_tree).rstrip('\0').split('\0')
   if not force:
-    unstaged_files = run('git', 'diff-files', '--name-status', *changed_files)
+    unstaged_files = run('git', '-c', 'core.fileMode=false', 'diff-files', '--name-status', *changed_files)
     if unstaged_files:
       print('The following files would be modified but '
                 'have unstaged changes:', file=sys.stderr)
