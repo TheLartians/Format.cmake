@@ -199,11 +199,11 @@ def load_git_config(non_string_options=None):
   if non_string_options is None:
     non_string_options = {}
   out = {}
-  for entry in run('git', 'config', '--list', '--null').split('\0'):
+  for entry in run('git', '-c', 'core.fileMode=false', 'config', '--list', '--null').split('\0'):
     if entry:
       name, value = entry.split('\n', 1)
       if name in non_string_options:
-        value = run('git', 'config', non_string_options[name], name)
+        value = run('git', '-c', 'core.fileMode=false', 'config', non_string_options[name], name)
       out[name] = value
   return out
 
@@ -250,7 +250,7 @@ def disambiguate_revision(value):
   """Returns True if `value` is a revision, False if it is a file, or dies."""
   # If `value` is ambiguous (neither a commit nor a file), the following
   # command will die with an appropriate error message.
-  run('git', 'rev-parse', value, verbose=False)
+  run('git', '-c', 'core.fileMode=false', 'rev-parse', value, verbose=False)
   object_type = get_object_type(value)
   if object_type is None:
     return False
@@ -263,7 +263,7 @@ def disambiguate_revision(value):
 def get_object_type(value):
   """Returns a string description of an object's type, or None if it is not
   a valid git object."""
-  cmd = ['git', 'cat-file', '-t', value]
+  cmd = ['git', '-c', 'core.fileMode=false', 'cat-file', '-t', value]
   p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   stdout, stderr = p.communicate()
   if p.returncode != 0:
@@ -342,7 +342,7 @@ def filter_by_extension(dictionary, allowed_extensions):
 
 def cd_to_toplevel():
   """Change to the top level of the git repository."""
-  toplevel = run('git', 'rev-parse', '--show-toplevel')
+  toplevel = run('git', '-c', 'core.fileMode=false', 'rev-parse', '--show-toplevel')
   os.chdir(toplevel)
 
 
@@ -366,7 +366,7 @@ def run_clang_format_and_save_to_tree(changed_lines, revision=None,
   def index_info_generator():
     for filename, line_ranges in iteritems(changed_lines):
       if revision:
-        git_metadata_cmd = ['git', 'ls-tree',
+        git_metadata_cmd = ['git', '-c', 'core.fileMode=false', 'ls-tree',
                             '%s:%s' % (revision, os.path.dirname(filename)),
                             os.path.basename(filename)]
         git_metadata = subprocess.Popen(git_metadata_cmd, stdin=subprocess.PIPE,
@@ -394,7 +394,7 @@ def create_tree(input_lines, mode):
   --index-info", such as "<mode> <SP> <sha1> <TAB> <filename>".  Any other mode
   is invalid."""
   assert mode in ('--stdin', '--index-info')
-  cmd = ['git', 'update-index', '--add', '-z', mode]
+  cmd = ['git', '-c', 'core.fileMode=false', 'update-index', '--add', '-z', mode]
   with temporary_index_file():
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for line in input_lines:
@@ -402,7 +402,7 @@ def create_tree(input_lines, mode):
     p.stdin.close()
     if p.wait() != 0:
       die('`%s` failed' % ' '.join(cmd))
-    tree_id = run('git', 'write-tree')
+    tree_id = run('git', '-c', 'core.fileMode=false', 'write-tree')
     return tree_id
 
 
@@ -422,7 +422,7 @@ def clang_format_to_blob(filename, line_ranges, revision=None,
       for start_line, line_count in line_ranges])
   if revision:
     clang_format_cmd.extend(['-assume-filename='+filename])
-    git_show_cmd = ['git', 'cat-file', 'blob', '%s:%s' % (revision, filename)]
+    git_show_cmd = ['git', '-c', 'core.fileMode=false', 'cat-file', 'blob', '%s:%s' % (revision, filename)]
     git_show = subprocess.Popen(git_show_cmd, stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE)
     git_show.stdin.close()
@@ -442,7 +442,7 @@ def clang_format_to_blob(filename, line_ranges, revision=None,
     else:
       raise
   clang_format_stdin.close()
-  hash_object_cmd = ['git', 'hash-object', '-w', '--path='+filename, '--stdin']
+  hash_object_cmd = ['git', '-c', 'core.fileMode=false', 'hash-object', '-w', '--path='+filename, '--stdin']
   hash_object = subprocess.Popen(hash_object_cmd, stdin=clang_format.stdout,
                                  stdout=subprocess.PIPE)
   clang_format.stdout.close()
@@ -478,11 +478,11 @@ def create_temporary_index(tree=None):
 
   If `tree` is not None, use that as the tree to read in.  Otherwise, an
   empty index is created."""
-  gitdir = run('git', 'rev-parse', '--git-dir')
+  gitdir = run('git', '-c', 'core.fileMode=false', 'rev-parse', '--git-dir')
   path = os.path.join(gitdir, temp_index_basename)
   if tree is None:
     tree = '--empty'
-  run('git', 'read-tree', '--index-output='+path, tree)
+  run('git', '-c', 'core.fileMode=false', 'read-tree', '--index-output='+path, tree)
   return path
 
 
@@ -523,11 +523,11 @@ def apply_changes(old_tree, new_tree, force=False, patch_mode=False):
     # better message, "Apply ... to index and worktree".  This is not quite
     # right, since it won't be applied to the user's index, but oh well.
     with temporary_index_file(old_tree):
-      subprocess.check_call(['git', 'checkout', '--patch', new_tree])
+      subprocess.check_call(['git', '-c', 'core.fileMode=false', 'checkout', '--patch', new_tree])
     index_tree = old_tree
   else:
     with temporary_index_file(new_tree):
-      run('git', 'checkout-index', '-a', '-f')
+      run('git', '-c', 'core.fileMode=false', 'checkout-index', '-a', '-f')
   return changed_files
 
 
