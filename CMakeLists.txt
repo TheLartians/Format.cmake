@@ -31,3 +31,32 @@ else()
   add_custom_target(check-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
   add_custom_target(fix-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
 endif()
+
+include(FindGit)
+find_program(CMAKE_FORMAT_PROGRAM cmake-format)
+
+if (Git_FOUND AND CMAKE_FORMAT_PROGRAM)
+  function (add_cmake_format_target name)
+    add_custom_target(${name}
+      COMMAND ${CMAKE_COMMAND} -DGIT_EXECUTABLE=${GIT_EXECUTABLE} -DCMAKE_FORMAT_PROGRAM=${CMAKE_FORMAT_PROGRAM}
+        -DCMAKE_FORMAT_TARGET=${name} -DCMAKE_MODULE_PATH="${CMAKE_MODULE_PATH}" -DWORKING_DIRECTORY=${CMAKE_SOURCE_DIR}
+        -P ${CMAKE_CURRENT_LIST_DIR}/cmake-format.cmake
+      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    )
+  endfunction()
+
+  add_cmake_format_target(cmake-format)
+  add_cmake_format_target(check-cmake-format)
+  add_cmake_format_target(fix-cmake-format)
+else()
+  message(STATUS "cmake-format or git not found: adding dummy Format.cmake targets")
+
+  set(CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS
+    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: cmake-format or git not found"
+    COMMAND ${CMAKE_COMMAND} -E false
+  )
+
+  add_custom_target(cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
+  add_custom_target(check-cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
+  add_custom_target(fix-cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
+endif()

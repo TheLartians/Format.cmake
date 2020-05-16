@@ -3,15 +3,17 @@
 
 # Format.cmake
 
-clang-format for CMake
+clang-format and cmake-format for CMake
 
 ## About
 
-Format.cmake adds three additional targets to your CMake project.
+Format.cmake adds six additional targets to your CMake project.
 
 - `format` Shows which files are affected by clang-format
 - `check-format` Errors if files are affected by clang-format (for CI integration)
 - `fix-format` Applies clang-format to all affected files
+
+For cmake-format, just prepend `cmake-` to `format`, like `fix-cmake-format`.
 
 To run the targets, invoke CMake with `cmake --build <build directory> --target <target name>`.
 
@@ -47,7 +49,7 @@ CPMAddPackage(
 Run the following from the project's root directory.
 
 ```bash
-git submodule add https://github.com/TheLartians/Format.cmake 
+git submodule add https://github.com/TheLartians/Format.cmake
 ```
 
 In add the following lines to the project's `CMakeLists.txt` after calling `project(...)`.
@@ -58,4 +60,4 @@ add_subdirectory(Format.cmake)
 
 ## Dependencies
 
-_Format.cmake_ requires _clang-format_, _CMake_ and _python 2.7_ or _python 3_.
+_Format.cmake_ requires _clang-format_ and/or _cmake-format_, _CMake_ and _python 2.7_ or _python 3_.
