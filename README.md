@@ -60,4 +60,6 @@ add_subdirectory(Format.cmake)
 
 ## Dependencies
 
-_Format.cmake_ requires _clang-format_ and/or _cmake-format_, _CMake_ and _python 2.7_ or _python 3_.
+_Format.cmake_ requires _CMake_,
+- _clang-format_, _python 2.7_ or _python 3_, or
+- _cmake-format_.
