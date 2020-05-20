@@ -32,6 +32,9 @@ jobs:
     - name: Check fixed format
       run: cmake --build build --target check-format && ! git diff --exit-code
 
+    - name: Clean up checkout
+      run: git reset --hard
+
     - name: Run format (cmake)
       run: "cmake --build build --target cmake-format"
 
