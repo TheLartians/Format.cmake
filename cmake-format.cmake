@@ -27,7 +27,6 @@ if (CMAKE_FORMAT_TARGET STREQUAL fix-cmake-format)
   return()
 endif()
 
-
 if (CMAKE_FORMAT_TARGET STREQUAL check-cmake-format)
   set(OUTPUT_QUIET OUTPUT_QUIET)
 endif()
