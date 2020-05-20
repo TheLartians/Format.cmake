@@ -63,10 +63,3 @@ add_subdirectory(Format.cmake)
 _Format.cmake_ requires _CMake_,
 - _clang-format_, _python 2.7_ or _python 3_, or
 - _cmake-format_.
-
-## Added capabilities
-
-The cmake-format targets use the value that `CMAKE_MODULE_PATH` has
-when the Format.cmake CMake buildsystem is processed
-to look for cmake-format configuration files to include
-in addition to those in the current repository.
