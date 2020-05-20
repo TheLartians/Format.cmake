@@ -7,12 +7,15 @@ jobs:
   build:
 
     runs-on: macos-latest
-    
+
     steps:
     - uses: actions/checkout@v1
 
     - name: Install clang-format
       run: brew install clang-format
+
+    - name: Install cmake-format
+      run: pip install cmake_format
 
     - name: Configure
       run: cmake -Htest -Bbuild
@@ -28,3 +31,15 @@ jobs:
 
     - name: Check fixed format
       run: cmake --build build --target check-format && ! git diff --exit-code
+
+    - name: Run format (cmake)
+      run: "cmake --build build --target cmake-format"
+
+    - name: Check format (cmake)
+      run: "! cmake --build build --target check-cmake-format"
+
+    - name: Fix format (cmake)
+      run: cmake --build build --target fix-cmake-format
+
+    - name: Check fixed format (cmake)
+      run: cmake --build build --target check-cmake-format && ! git diff --exit-code
