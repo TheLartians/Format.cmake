@@ -15,12 +15,16 @@ separate_arguments(CMAKE_MODULE_PATH)
 foreach (dir IN LISTS CMAKE_MODULE_PATH CMAKE_SOURCE_DIR)
   filter_files(GIT_REPOSITORY_DIR ${dir} OUTPUT_LIST modules_configs REGEX "(^|/)\\.?cmake-format\\.(yaml|json|py)$")
   foreach (cfg IN LISTS modules_configs)
-    list(APPEND CONFIG_FILES ${dir}/${modules_configs})
+    list(APPEND CONFIG_FILES_ARG ${dir}/${modules_configs})
   endforeach()
 endforeach()
 
+if (CONFIG_FILES_ARG)
+  list(PREPEND CONFIG_FILES_ARG --config-files)
+endif()
+
 set(CONFIG_FILE ${BINARY_DIR}/cmake-format.py)
-execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} --config-files ${CONFIG_FILES} --dump-config OUTPUT_FILE ${CONFIG_FILE})
+execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} ${CONFIG_FILES_ARGS} --dump-config OUTPUT_FILE ${CONFIG_FILE})
 
 if (CMAKE_FORMAT_TARGET STREQUAL fix-cmake-format)
   execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -c ${CONFIG_FILE} -i ${CMAKE_FILES})
