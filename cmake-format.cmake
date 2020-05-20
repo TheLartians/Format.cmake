@@ -10,7 +10,7 @@ endfunction()
 
 filter_files(GIT_REPOSITORY_DIR ${CMAKE_SOURCE_DIR} OUTPUT_LIST CMAKE_FILES REGEX "\\.cmake$|(^|/)CMakeLists\\.txt$")
 
-# Scan modules' cmake-format configs
+# Find cmake-format configs
 separate_arguments(CMAKE_MODULE_PATH)
 foreach (dir IN LISTS CMAKE_MODULE_PATH CMAKE_SOURCE_DIR)
   filter_files(GIT_REPOSITORY_DIR ${dir} OUTPUT_LIST modules_configs REGEX "(^|/)\\.?cmake-format\\.(yaml|json|py)$")
