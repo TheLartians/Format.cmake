@@ -19,10 +19,13 @@ foreach (dir IN LISTS CMAKE_MODULE_PATH CMAKE_SOURCE_DIR)
   endforeach()
 endforeach()
 
+set(CONFIG_FILE ${BINARY_DIR}/cmake-format.py)
+execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} --config-files ${CONFIG_FILES} --dump-config OUTPUT_FILE ${CONFIG_FILE})
+
 if (CMAKE_FORMAT_TARGET STREQUAL cmake-format)
 
 elseif (CMAKE_FORMAT_TARGET STREQUAL check-cmake-format)
 
 elseif (CMAKE_FORMAT_TARGET STREQUAL fix-cmake-format)
-  execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} --config-files ${CONFIG_FILES} -i ${CMAKE_FILES})
+  execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -c ${CONFIG_FILE} -i ${CMAKE_FILES})
 endif()
