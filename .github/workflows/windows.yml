@@ -16,7 +16,7 @@ jobs:
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
 
-    - name: Install clang-format
+    - name: Install cmake-format
       run: pip install cmake_format
 
     - name: Configure
