@@ -18,7 +18,7 @@ jobs:
       run: pip install cmake_format
 
     - name: Configure
-      run: cmake -Htest -Bbuild
+      run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
 
     - name: Run format
       run: "cmake --build build --target format"
