@@ -7,7 +7,7 @@ jobs:
   build:
 
     runs-on: windows-latest
-    
+
     steps:
     - uses: actions/checkout@v1
 
@@ -15,6 +15,9 @@ jobs:
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
+
+    - name: Install clang-format
+      run: pip install cmake_format
 
     - name: Configure
       shell: bash
@@ -35,3 +38,23 @@ jobs:
     - name: Check fixed format
       shell: bash
       run: cmake --build build --target check-format && ! git diff --exit-code
+
+    - name: Clean up checkout
+      shell: bash
+      run: git reset --hard
+
+    - name: Run format (cmake)
+      shell: bash
+      run: "cmake --build build --target cmake-format"
+
+    - name: Check format (cmake)
+      shell: bash
+      run: "! cmake --build build --target check-cmake-format"
+
+    - name: Fix format (cmake)
+      shell: bash
+      run: cmake --build build --target fix-cmake-format
+
+    - name: Check fixed format (cmake)
+      shell: bash
+      run: cmake --build build --target check-cmake-format && ! git diff --exit-code
