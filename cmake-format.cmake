@@ -1,7 +1,7 @@
 # Regex-filter a git repository's files.
 function (filter_files)
   cmake_parse_arguments("" "" "GIT_REPOSITORY_DIR;OUTPUT_LIST;REGEX" "" ${ARGN})
-  execute_process(COMMAND ${GIT_PROGRAM} ls-files --cached --others --exclude-standard WORKING_DIRECTORY ${_GIT_REPOSITORY_DIR} OUTPUT_VARIABLE all_files)
+  execute_process(COMMAND ${GIT_PROGRAM} ls-files --cached --exclude-standard WORKING_DIRECTORY ${_GIT_REPOSITORY_DIR} OUTPUT_VARIABLE all_files)
   cmake_policy(SET CMP0007 NEW)
   string(REPLACE "\n" ";" filtered_files "${all_files}")
   list(FILTER filtered_files INCLUDE REGEX ${_REGEX})
