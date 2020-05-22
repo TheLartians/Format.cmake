@@ -37,13 +37,13 @@ else()
   add_custom_target(fix-clang-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
 endif()
 
-include(FindGit)
+find_program(GIT_PROGRAM git)
 find_program(CMAKE_FORMAT_PROGRAM cmake-format)
 
-if (Git_FOUND AND CMAKE_FORMAT_PROGRAM)
+if (GIT_PROGRAM AND CMAKE_FORMAT_PROGRAM)
   function (add_cmake_format_target name)
     add_custom_target(${name}
-      COMMAND ${CMAKE_COMMAND} -DGIT_EXECUTABLE=${GIT_EXECUTABLE} -DCMAKE_FORMAT_PROGRAM=${CMAKE_FORMAT_PROGRAM}
+      COMMAND ${CMAKE_COMMAND} -DGIT_PROGRAM=${GIT_PROGRAM} -DCMAKE_FORMAT_PROGRAM=${CMAKE_FORMAT_PROGRAM}
         -DCMAKE_FORMAT_TARGET=${name} -DBINARY_DIR="${CMAKE_CURRENT_BINARY_DIR}"
         -P ${CMAKE_CURRENT_LIST_DIR}/cmake-format.cmake
       WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
