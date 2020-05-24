@@ -25,7 +25,7 @@ endif()
 set(formatted_cmake_file ${BINARY_DIR}/formatted.cmake)
 foreach(cmake_file IN LISTS CMAKE_FILES)
   set(source_cmake_file ${CMAKE_SOURCE_DIR}/${cmake_file})
-  execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -i ${source_cmake_file} -o ${formatted_cmake_file})
+  execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -o ${formatted_cmake_file} ${source_cmake_file})
   execute_process(COMMAND ${GIT_PROGRAM} diff --no-index -- ${source_cmake_file} ${formatted_cmake_file}
     RESULT_VARIABLE result
     ${OUTPUT_QUIET})
