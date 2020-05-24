@@ -23,8 +23,11 @@ jobs:
     - name: Run format
       run: "cmake --build build --target format"
 
-    - name: Check format
-      run: "! cmake --build build --target check-format"
+    - name: Check clang-format
+      run: "! cmake --build build --target check-clang-format"
+
+    - name: Check cmake-format
+      run: "! cmake --build build --target check-cmake-format"
 
     - name: Fix format
       run: cmake --build build --target fix-format
