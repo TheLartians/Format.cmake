@@ -7,15 +7,15 @@ clang-format and cmake-format for CMake
 
 ## About
 
-Format.cmake adds six additional targets to your CMake project.
+Format.cmake adds three additional targets to your CMake project.
 
-- `format` Shows which files are affected by clang-format
-- `check-format` Errors if files are affected by clang-format (for CI integration)
-- `fix-format` Applies clang-format to all affected files
-
-For cmake-format, just prepend `cmake-` to `format`, like `fix-cmake-format`.
+- `format` Shows which files are affected by the format tools
+- `check-format` Errors if files are affected by the format tools (for CI integration)
+- `fix-format` Applies the format tools to all affected files
 
 To run the targets, invoke CMake with `cmake --build <build directory> --target <target name>`.
+
+To enable formatting CMake files, invoke CMake with `cmake <source directory> -DFORMAT_CHECK_CMAKE=ON`.
 
 ## Demo
 
