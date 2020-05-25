@@ -21,7 +21,7 @@ if (CMAKE_FORMAT_TARGET STREQUAL fix-cmake-format)
 endif()
 
 if (CMAKE_FORMAT_TARGET STREQUAL check-cmake-format)
-  set(OUTPUT_QUIET OUTPUT_QUIET)
+  set(OUTPUT_QUIET_OPTION OUTPUT_QUIET)
 endif()
 
 set(formatted_cmake_file ${BINARY_DIR}/formatted.cmake)
@@ -30,8 +30,8 @@ foreach(cmake_file IN LISTS CMAKE_FILES)
   execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -o ${formatted_cmake_file} ${source_cmake_file})
   execute_process(COMMAND ${GIT_PROGRAM} diff --no-index -- ${source_cmake_file} ${formatted_cmake_file}
     RESULT_VARIABLE result
-    ${OUTPUT_QUIET})
-  if (OUTPUT_QUIET AND result)
+    ${OUTPUT_QUIET_OPTION})
+  if (OUTPUT_QUIET_OPTION AND result)
     message(FATAL_ERROR "${cmake_file} needs to be reformatted")
   endif()
 endforeach()
