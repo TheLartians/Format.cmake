@@ -29,6 +29,9 @@ jobs:
     - name: Check cmake-format
       run: "! cmake --build build --target check-cmake-format"
 
+    - name: Check format
+      run: "! cmake --build build --target check-format"
+
     - name: Fix format
       run: cmake --build build --target fix-format
 

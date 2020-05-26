@@ -35,6 +35,10 @@ jobs:
       shell: bash
       run: "! cmake --build build --target check-cmake-format"
 
+    - name: Check format
+      shell: bash
+      run: "! cmake --build build --target check-format"
+
     - name: Fix format
       shell: bash
       run: cmake --build build --target fix-format
