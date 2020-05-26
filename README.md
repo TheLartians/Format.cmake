@@ -39,8 +39,10 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage(
   NAME Format.cmake
+  VERSION 1.4
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  VERSION 1.3
+  # enable cmake formatting
+  OPTIONS "FORMAT_CHECK_CMAKE ON"
 )
 ```
 
