@@ -15,7 +15,7 @@ Format.cmake adds three additional targets to your CMake project.
 
 To run the targets, invoke CMake with `cmake --build <build directory> --target <target name>`.
 
-To enable formatting CMake files, invoke CMake with `cmake <source directory> -DFORMAT_CHECK_CMAKE=ON`.
+To use _cmake_format_ to also format CMake files, enable the cmake option `FORMAT_CHECK_CMAKE`, e.g. by invoking CMake with `-DFORMAT_CHECK_CMAKE=ON`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
 
 ## Demo
 
