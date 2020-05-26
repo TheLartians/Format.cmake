@@ -1,8 +1,8 @@
 # Regex-filter a git repository's files.
-function (filter_files)
+function (get_cmake_files)
   cmake_parse_arguments("" "" "GIT_REPOSITORY_DIR;OUTPUT_LIST;REGEX" "" ${ARGN})
-  execute_process(COMMAND ${GIT_PROGRAM} ls-files --cached --exclude-standard
-    WORKING_DIRECTORY ${_GIT_REPOSITORY_DIR}
+  execute_process(COMMAND ${GIT_PROGRAM} ls-files --cached --exclude-standard ${_GIT_REPOSITORY_DIR}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     OUTPUT_VARIABLE all_files)
   cmake_policy(SET CMP0007 NEW)
   string(REPLACE "\n" ";" filtered_files "${all_files}")
@@ -11,7 +11,16 @@ function (filter_files)
   set(${_OUTPUT_LIST} ${filtered_files} PARENT_SCOPE)
 endfunction()
 
-filter_files(GIT_REPOSITORY_DIR ${CMAKE_SOURCE_DIR}
+execute_process(
+  COMMAND git rev-parse --show-toplevel
+  OUTPUT_VARIABLE GIT_TOPLEVEL
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
+
+# remove trailing whitespace from output
+string(STRIP ${GIT_TOPLEVEL} GIT_TOPLEVEL)
+
+get_cmake_files(GIT_REPOSITORY_DIR ${GIT_TOPLEVEL}
     OUTPUT_LIST CMAKE_FILES
     REGEX "\\.cmake$|(^|/)CMakeLists\\.txt$")
 
