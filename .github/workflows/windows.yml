@@ -12,7 +12,7 @@ jobs:
   build:
 
     runs-on: windows-latest
-    
+
     steps:
     - uses: actions/checkout@v1
 
@@ -21,13 +21,24 @@ jobs:
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
 
+    - name: Install cmake-format
+      run: pip install cmake_format
+
     - name: Configure
       shell: bash
-      run: cmake -Htest -Bbuild
+      run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
 
     - name: Run format
       shell: bash
       run: "cmake --build build --target format"
+
+    - name: Check clang-format
+      shell: bash
+      run: "! cmake --build build --target check-clang-format"
+
+    - name: Check cmake-format
+      shell: bash
+      run: "! cmake --build build --target check-cmake-format"
 
     - name: Check format
       shell: bash
