@@ -1,9 +1,12 @@
 option(FORMAT_CHECK_CMAKE "Enable CMake formatting.")
 
 find_program(CLANG_FORMAT_PROGRAM clang-format)
+find_program(GIT_PROGRAM git)
+find_program(CMAKE_FORMAT_PROGRAM cmake-format)
+find_package(Python)
 
-if (CLANG_FORMAT_PROGRAM)
-  set(CLANG_FORMAT_COMMAND python ${CMAKE_CURRENT_LIST_DIR}/git-clang-format.py --binary=${CLANG_FORMAT_PROGRAM})
+if (CLANG_FORMAT_PROGRAM AND Python_FOUND)
+  set(CLANG_FORMAT_COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/git-clang-format.py --binary=${CLANG_FORMAT_PROGRAM})
   set(GIT_EMPTY_TREE_HASH 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
 
   add_custom_target(clang-format
@@ -25,10 +28,10 @@ if (CLANG_FORMAT_PROGRAM)
   list(APPEND CHECK_FORMAT_TARGETS check-clang-format)
   list(APPEND FIX_FORMAT_TARGETS fix-clang-format)
 else()
-  message(STATUS "clang-format not found: adding dummy Format.cmake targets")
+  message(STATUS "clang-format or python not found: adding dummy Format.cmake targets")
 
   set(CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS
-    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: clang-format not found"
+    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: clang-format or python not found"
     COMMAND ${CMAKE_COMMAND} -E false
   )
 
@@ -37,8 +40,6 @@ else()
   add_custom_target(fix-clang-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
 endif()
 
-find_program(GIT_PROGRAM git)
-find_program(CMAKE_FORMAT_PROGRAM cmake-format)
 
 if (GIT_PROGRAM AND CMAKE_FORMAT_PROGRAM)
   function (add_cmake_format_target name)
