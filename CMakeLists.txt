@@ -23,15 +23,11 @@ if (CLANG_FORMAT_PROGRAM AND Python_FOUND)
     COMMAND ${CLANG_FORMAT_COMMAND} ${GIT_EMPTY_TREE_HASH} -f
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   )
-
-  list(APPEND FORMAT_TARGETS clang-format)
-  list(APPEND CHECK_FORMAT_TARGETS check-clang-format)
-  list(APPEND FIX_FORMAT_TARGETS fix-clang-format)
 else()
-  message(STATUS "clang-format or python not found: adding dummy Format.cmake targets")
+  message(STATUS "Format.cmake: clang-format and/or python not found, adding dummy targets")
 
   set(CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS
-    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: clang-format or python not found"
+    COMMAND ${CMAKE_COMMAND} -E echo "Format.cmake: cannot run because clang-format and/or python not found"
     COMMAND ${CMAKE_COMMAND} -E false
   )
 
@@ -39,7 +35,6 @@ else()
   add_custom_target(check-clang-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
   add_custom_target(fix-clang-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
 endif()
-
 
 if (GIT_PROGRAM AND CMAKE_FORMAT_PROGRAM)
   function (add_cmake_format_target name)
@@ -54,23 +49,26 @@ if (GIT_PROGRAM AND CMAKE_FORMAT_PROGRAM)
   add_cmake_format_target(cmake-format)
   add_cmake_format_target(check-cmake-format)
   add_cmake_format_target(fix-cmake-format)
-
-  if (FORMAT_CHECK_CMAKE)
-    list(APPEND FORMAT_TARGETS cmake-format)
-    list(APPEND CHECK_FORMAT_TARGETS check-cmake-format)
-    list(APPEND FIX_FORMAT_TARGETS fix-cmake-format)
-  endif()
 else()
-  message(STATUS "cmake-format or git not found: adding dummy Format.cmake targets")
+  message(STATUS "Format.cmake: cmake-format and/or git not found, adding dummy targets")
 
   set(CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS
-    COMMAND ${CMAKE_COMMAND} -E echo "cannot run Format.cmake: cmake-format or git not found"
+    COMMAND ${CMAKE_COMMAND} -E echo "Format.cmake: cannot run because cmake-format and/or git not found"
     COMMAND ${CMAKE_COMMAND} -E false
   )
 
   add_custom_target(cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
   add_custom_target(check-cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
   add_custom_target(fix-cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
+endif()
+
+list(APPEND FORMAT_TARGETS clang-format)
+list(APPEND CHECK_FORMAT_TARGETS check-clang-format)
+list(APPEND FIX_FORMAT_TARGETS fix-clang-format)
+if (FORMAT_CHECK_CMAKE)
+  list(APPEND FORMAT_TARGETS cmake-format)
+  list(APPEND CHECK_FORMAT_TARGETS check-cmake-format)
+  list(APPEND FIX_FORMAT_TARGETS fix-cmake-format)
 endif()
 
 add_custom_target(format)
