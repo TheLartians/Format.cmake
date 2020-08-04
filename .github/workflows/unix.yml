@@ -21,6 +21,7 @@ jobs:
         cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
         cmake --build build
         ./build/test
+        ! cmake --build build --target format
 
     - name: Install format dependencies
       run: |
