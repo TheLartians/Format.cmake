@@ -16,13 +16,19 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install clang-format
+    - name: Configure and build without format dependencies
+      shell: bash
+      run: |
+        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+        cmake --build build
+        ./build/Debug/test.exe
+        ! cmake --build build --target format
+
+    - name: Install format dependencies
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
-
-    - name: Install cmake-format
-      run: pip install cmake_format
+        pip install cmake_format
 
     - name: Configure
       shell: bash
