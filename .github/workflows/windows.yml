@@ -16,6 +16,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Configure and build without format dependencies
+      shell: bash
+      run: |
+        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+        cmake --build build
+        ./build/test.exe
+
     - name: Install clang-format
       run: |
         choco install llvm -y
