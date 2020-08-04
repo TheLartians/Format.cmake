@@ -16,11 +16,16 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Install clang-format
-      run: brew install clang-format
+    - name: Configure and build without format dependencies
+      run: |
+        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+        cmake --build build
+        ./build/test
 
-    - name: Install cmake-format
-      run: pip install cmake_format
+    - name: Install format dependencies
+      run: |
+        brew install clang-format
+        pip install cmake_format
 
     - name: Configure
       run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
