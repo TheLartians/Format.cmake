@@ -8,6 +8,10 @@ function (get_cmake_files)
   string(REPLACE "\n" ";" filtered_files "${all_files}")
   list(FILTER filtered_files
     INCLUDE REGEX ${_REGEX})
+  if (CMAKE_FORMAT_EXCLUDE)
+    list(FILTER filtered_files
+      EXCLUDE REGEX ${CMAKE_FORMAT_EXCLUDE})
+  endif()
   set(${_OUTPUT_LIST} ${filtered_files} PARENT_SCOPE)
 endfunction()
 

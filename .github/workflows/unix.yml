@@ -14,7 +14,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Configure and build without format dependencies
       run: |
@@ -48,3 +48,14 @@ jobs:
 
     - name: Check fixed format
       run: cmake --build build --target check-format && ! git diff --exit-code
+
+    - name: Configure cmake-format with excluded file
+      run: |
+        git reset --hard HEAD
+        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True -DCMAKE_FORMAT_EXCLUDE="(^|/)sample\\.cmake$"
+
+    - name: Fix cmake-format skipping excluded file
+      run: cmake --build build --target fix-cmake-format
+
+    - name: Check cmake-format with excluded file
+      run: cmake --build build --target check-cmake-format && ! git diff --exit-code -- test/CMakeLists.txt && git diff --exit-code -- test/sample.cmake

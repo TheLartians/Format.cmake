@@ -1,4 +1,5 @@
 option(FORMAT_CHECK_CMAKE "Enable CMake formatting.")
+set(CMAKE_FORMAT_EXCLUDE "" CACHE STRING "CMake formatting file exclusion pattern.")
 
 find_program(CLANG_FORMAT_PROGRAM clang-format)
 find_program(GIT_PROGRAM git)
@@ -40,8 +41,9 @@ if (GIT_PROGRAM AND CMAKE_FORMAT_PROGRAM)
   function (add_cmake_format_target name)
     add_custom_target(${name}
       COMMAND ${CMAKE_COMMAND} -DGIT_PROGRAM=${GIT_PROGRAM} -DCMAKE_FORMAT_PROGRAM=${CMAKE_FORMAT_PROGRAM}
-        -DCMAKE_FORMAT_TARGET=${name} -DBINARY_DIR="${CMAKE_CURRENT_BINARY_DIR}"
-        -P ${CMAKE_CURRENT_LIST_DIR}/cmake-format.cmake
+        -DCMAKE_FORMAT_TARGET=${name} -DBINARY_DIR=${CMAKE_CURRENT_BINARY_DIR}
+        -DCMAKE_FORMAT_EXCLUDE=${CMAKE_FORMAT_EXCLUDE} -P ${CMAKE_CURRENT_LIST_DIR}/cmake-format.cmake
+      VERBATIM
       WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
   endfunction()
