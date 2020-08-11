@@ -39,10 +39,12 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage(
   NAME Format.cmake
-  VERSION 1.5
+  VERSION 1.6
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  # enable cmake formatting
-  OPTIONS "FORMAT_CHECK_CMAKE ON"
+  OPTIONS # enable cmake formatting
+          "FORMAT_CHECK_CMAKE ON"
+          # skip scripts in the cmake directory
+          "CMAKE_FORMAT_EXCLUDE (^|/)cmake"
 )
 ```
 
