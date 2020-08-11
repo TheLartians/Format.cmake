@@ -30,7 +30,6 @@ jobs:
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
         pip install cmake_format pyyaml
 
-
     - name: Configure
       shell: bash
       run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True

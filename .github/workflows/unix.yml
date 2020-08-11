@@ -28,7 +28,6 @@ jobs:
         brew install clang-format
         pip install cmake_format pyyaml
 
-
     - name: Configure
       run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
 

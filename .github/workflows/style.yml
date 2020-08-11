@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install cmake_format
+    - name: Install format dependencies
       run: pip install cmake_format pyyaml
 
     - name: Check source style

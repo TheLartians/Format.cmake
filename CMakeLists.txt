@@ -36,8 +36,10 @@ else()
   message(STATUS "Format.cmake: clang-format and/or python not found, adding dummy targets")
 
   set(CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS
+      # show error message
       COMMAND ${CMAKE_COMMAND} -E echo
       "Format.cmake: cannot run because clang-format and/or python not found" COMMAND
+      # fail build
       ${CMAKE_COMMAND} -E false
   )
 
@@ -67,9 +69,11 @@ else()
   message(STATUS "Format.cmake: cmake-format and/or git not found, adding dummy targets")
 
   set(CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS
+      # show error message
       COMMAND ${CMAKE_COMMAND} -E echo
-      "Format.cmake: cannot run because cmake-format and/or git not found" COMMAND ${CMAKE_COMMAND}
-      -E false
+      "Format.cmake: cannot run because cmake-format and/or git not found"
+      # fail build
+      COMMAND ${CMAKE_COMMAND} -E false
   )
 
   add_custom_target(cmake-format ${CMAKE_FORMAT_NOT_FOUND_COMMAND_ARGS})
