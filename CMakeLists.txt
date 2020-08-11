@@ -38,9 +38,9 @@ else()
   set(CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS
       # show error message
       COMMAND ${CMAKE_COMMAND} -E echo
-      "Format.cmake: cannot run because clang-format and/or python not found" COMMAND
+      "Format.cmake: cannot run because clang-format and/or python not found"
       # fail build
-      ${CMAKE_COMMAND} -E false
+      COMMAND ${CMAKE_COMMAND} -E false
   )
 
   add_custom_target(clang-format ${CLANG_FORMAT_NOT_FOUND_COMMAND_ARGS})
