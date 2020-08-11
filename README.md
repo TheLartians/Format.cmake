@@ -41,10 +41,10 @@ CPMAddPackage(
   NAME Format.cmake
   VERSION 1.6
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  OPTIONS # enable cmake formatting
+  OPTIONS # enable cmake formatting (optional)
           "FORMAT_CHECK_CMAKE ON"
-          # skip scripts in the cmake directory
-          "CMAKE_FORMAT_EXCLUDE (^|/)cmake"
+          # path to exclude (optional, supports regular expressions)
+          "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )
 ```
 
