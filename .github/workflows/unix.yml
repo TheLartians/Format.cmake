@@ -18,7 +18,7 @@ jobs:
 
     - name: Configure and build without format dependencies
       run: |
-        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+        cmake -Htest -Bbuild
         cmake --build build
         ./build/test
         ! cmake --build build --target format
@@ -29,7 +29,7 @@ jobs:
         pip install cmake_format pyyaml
 
     - name: Configure
-      run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+      run: cmake -Htest -Bbuild
 
     - name: Run format
       run: "cmake --build build --target format"
@@ -52,7 +52,7 @@ jobs:
     - name: Configure cmake-format with excluded file
       run: |
         git reset --hard HEAD
-        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True -DCMAKE_FORMAT_EXCLUDE="(^|/)sample\\.cmake$"
+        cmake -Htest -Bbuild -DCMAKE_FORMAT_EXCLUDE="(^|/)sample\\.cmake$"
 
     - name: Fix cmake-format skipping excluded file
       run: cmake --build build --target fix-cmake-format

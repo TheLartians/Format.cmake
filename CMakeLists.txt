@@ -1,4 +1,5 @@
-option(FORMAT_CHECK_CMAKE "Enable CMake formatting.")
+option(FORMAT_SKIP_CMAKE "Skip CMake formatting.")
+
 set(CMAKE_FORMAT_EXCLUDE
     ""
     CACHE STRING "CMake formatting file exclusion pattern."
@@ -84,7 +85,7 @@ endif()
 list(APPEND FORMAT_TARGETS clang-format)
 list(APPEND CHECK_FORMAT_TARGETS check-clang-format)
 list(APPEND FIX_FORMAT_TARGETS fix-clang-format)
-if(FORMAT_CHECK_CMAKE)
+if(NOT FORMAT_SKIP_CMAKE)
   list(APPEND FORMAT_TARGETS cmake-format)
   list(APPEND CHECK_FORMAT_TARGETS check-cmake-format)
   list(APPEND FIX_FORMAT_TARGETS fix-cmake-format)
