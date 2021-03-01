@@ -28,7 +28,7 @@ jobs:
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
-        pip install cmake_format pyyaml
+        pip3 install cmake_format==0.6.11 pyyaml
 
     - name: Configure
       shell: bash
