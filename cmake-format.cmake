@@ -12,7 +12,6 @@ function(get_cmake_files)
   if(CMAKE_FORMAT_EXCLUDE)
     list(FILTER filtered_files EXCLUDE REGEX ${CMAKE_FORMAT_EXCLUDE})
   endif()
-  message("filtered_files ${filtered_files}")
   set(${_OUTPUT_LIST}
       ${filtered_files}
       PARENT_SCOPE
