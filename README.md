@@ -43,8 +43,8 @@ CPMAddPackage(
   GITHUB_REPOSITORY TheLartians/Format.cmake
   OPTIONS # set to yes skip cmake formatting
           "FORMAT_SKIP_CMAKE NO"
-          # skip scripts in the cmake directory
-          "CMAKE_FORMAT_EXCLUDE (^|/)cmake"
+          # path to exclude (optional, supports regular expressions)
+          "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )
 ```
 
