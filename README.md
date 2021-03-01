@@ -15,7 +15,7 @@ Format.cmake adds three additional targets to your CMake project.
 
 To run the targets, invoke CMake with `cmake --build <build directory> --target <target name>`.
 
-To use _cmake_format_ to also format CMake files, enable the cmake option `FORMAT_CHECK_CMAKE`, e.g. by invoking CMake with `-DFORMAT_CHECK_CMAKE=ON`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
+To disable using _cmake_format_ to format CMake files, set the cmake option `FORMAT_SKIP_CMAKE` to a truthy value, e.g. by invoking CMake with `-DFORMAT_SKIP_CMAKE=YES`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
 
 ## Demo
 
@@ -39,10 +39,10 @@ include(cmake/CPM.cmake)
 
 CPMAddPackage(
   NAME Format.cmake
-  VERSION 1.6
+  VERSION 1.7.0
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  OPTIONS # enable cmake formatting (optional)
-          "FORMAT_CHECK_CMAKE ON"
+  OPTIONS # set to yes skip cmake formatting
+          "FORMAT_SKIP_CMAKE NO"
           # path to exclude (optional, supports regular expressions)
           "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )

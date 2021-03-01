@@ -19,20 +19,22 @@ jobs:
     - name: Configure and build without format dependencies
       shell: bash
       run: |
-        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+        cmake -Htest -Bbuild
         cmake --build build
         ./build/Debug/test.exe
         ! cmake --build build --target format
 
     - name: Install format dependencies
+      env: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
-        pip install cmake_format pyyaml
+        pip3 install cmake_format==0.6.11 pyyaml
 
     - name: Configure
       shell: bash
-      run: cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True
+      run: cmake -Htest -Bbuild
 
     - name: Run format
       shell: bash
@@ -62,7 +64,7 @@ jobs:
       # Not using `bash` to prevent regular expression from being treated as a filesystem path
       run: |
         git reset --hard HEAD
-        cmake -Htest -Bbuild -DFORMAT_CHECK_CMAKE=True -DCMAKE_FORMAT_EXCLUDE="(^|/)sample\.cmake$"
+        cmake -Htest -Bbuild -DCMAKE_FORMAT_EXCLUDE="(^|/)sample\.cmake$"
 
     - name: Fix cmake-format skipping excluded file
       shell: bash
