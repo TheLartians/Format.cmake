@@ -1,10 +1,5 @@
 option(FORMAT_SKIP_CMAKE "Skip CMake formatting.")
 
-set(CMAKE_FORMAT_EXCLUDE
-    ""
-    CACHE STRING "CMake formatting file exclusion pattern."
-)
-
 find_program(CLANG_FORMAT_PROGRAM clang-format)
 find_program(GIT_PROGRAM git)
 find_program(CMAKE_FORMAT_PROGRAM cmake-format)
