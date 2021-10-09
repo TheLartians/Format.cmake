@@ -46,7 +46,7 @@ foreach(cmake_file IN LISTS CMAKE_FILES)
   set(source_cmake_file ${CMAKE_SOURCE_DIR}/${cmake_file})
   execute_process(COMMAND ${CMAKE_FORMAT_PROGRAM} -o ${formatted_cmake_file} ${source_cmake_file})
   execute_process(
-    COMMAND ${GIT_PROGRAM} diff --color --no-index -- ${source_cmake_file} ${formatted_cmake_file}
+    COMMAND ${GIT_PROGRAM} diff -G. --color --no-index -- ${source_cmake_file} ${formatted_cmake_file}
     RESULT_VARIABLE result ${OUTPUT_QUIET_OPTION}
   )
   if(OUTPUT_QUIET_OPTION AND result)
