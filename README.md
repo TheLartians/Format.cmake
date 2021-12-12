@@ -23,28 +23,31 @@ To disable using _cmake_format_ to format CMake files, set the cmake option `FOR
 
 ## How to integrate
 
-### Using [CPM.cmake](https://github.com/TheLartians/CPM) (recommended)
+### Using [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) (recommended)
 
-Run the following from the project's root directory to add CPM to your project.
+#### Basic configuration
 
-```bash
-mkdir -p cmake
-wget -O cmake/CPM.cmake https://raw.githubusercontent.com/TheLartians/CPM/master/cmake/CPM.cmake
+After [adding CPM.cmake](https://github.com/cpm-cmake/CPM.cmake#adding-cpm), add the following line to the project's `CMakeLists.txt` after calling `project(...)`.
+
+```cmake
+include(cmake/CPM.cmake)
+CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
 ```
 
-Add the following lines to the project's `CMakeLists.txt` after calling `project(...)`.
+#### Advanced configuration
+
+This package supports optional parameters that you can specify in the CPM.cmake `OPTIONS` argument.
 
 ```CMake
-include(cmake/CPM.cmake)
-
 CPMAddPackage(
   NAME Format.cmake
-  VERSION 1.7.0
+  VERSION 1.7.3
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  OPTIONS # set to yes skip cmake formatting
-          "FORMAT_SKIP_CMAKE NO"
-          # path to exclude (optional, supports regular expressions)
-          "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
+  OPTIONS 
+      # set to yes skip cmake formatting
+      "FORMAT_SKIP_CMAKE NO"
+      # path to exclude (optional, supports regular expressions)
+      "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )
 ```
 
