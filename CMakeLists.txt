@@ -5,6 +5,12 @@ find_program(GIT_PROGRAM git)
 find_program(CMAKE_FORMAT_PROGRAM cmake-format)
 find_package(Python)
 
+if(NOT CMAKE_FORMAT_PROGRAM AND Python_FOUND)
+  message(STATUS "Format.cmake: cmake-format not found, installing cmakelang")
+  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install cmakelang)
+  find_program(CMAKE_FORMAT_PROGRAM cmake-format)
+endif()
+
 if(CLANG_FORMAT_PROGRAM AND Python_FOUND)
   set(CLANG_FORMAT_COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/git-clang-format.py
                            --binary=${CLANG_FORMAT_PROGRAM}

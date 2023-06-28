@@ -25,12 +25,11 @@ jobs:
         ! cmake --build build --target format
 
     - name: Install format dependencies
-      env: 
+      env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
         choco install llvm -y
         echo "::add-path::C:\\Program Files\\LLVM\\bin"
-        pip3 install cmake_format==0.6.11 pyyaml
 
     - name: Configure
       shell: bash
