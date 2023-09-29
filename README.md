@@ -19,6 +19,10 @@ To disable using _cmake_format_ to format CMake files, set the cmake option `FOR
 
 To disable using _clang_format_ to format clang-supported files, set the cmake option `FORMAT_SKIP_CLANG` to a truthy value, e.g. by invoking CMake with `-DFORMAT_SKIP_CLANG=YES`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
 
+To specify a extra arguments for cmake-format, use the cmake option `CMAKE_FORMAT_EXTRA_ARGS`, e.g. by invoking CMake with `-DCMAKE_FORMAT_EXTRA_ARGS="-c /path/to/cmake-format-config.{yaml,json,py}"`,
+or by enabling the option when [adding the dependency](#how-to-integrate) (recommended).
+
+
 ## Demo
 
 ![](https://user-images.githubusercontent.com/4437447/66123312-31ec3500-e5d1-11e9-8404-492b8eff8511.gif)
@@ -52,6 +56,8 @@ CPMAddPackage(
       "FORMAT_SKIP_CLANG NO"
       # path to exclude (optional, supports regular expressions)
       "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
+      # extra arguments for cmake_format (optional)
+      "CMAKE_FORMAT_EXTRA_ARGS -c /path/to/cmake-format.{yaml,json,py}"
 )
 ```
 
