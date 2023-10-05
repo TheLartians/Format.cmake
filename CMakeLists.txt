@@ -6,9 +6,27 @@ find_program(CMAKE_FORMAT_PROGRAM cmake-format)
 find_package(Python)
 
 if(NOT CMAKE_FORMAT_PROGRAM AND Python_FOUND)
-  message(STATUS "Format.cmake: cmake-format not found, installing cmakelang")
-  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install cmakelang==0.6.13 )
-  find_program(CMAKE_FORMAT_PROGRAM cmake-format)
+  execute_process(
+    COMMAND ${Python_EXECUTABLE} -m venv ${CMAKE_BINARY_DIR}/_venv
+    RESULT_VARIABLE RES
+    OUTPUT_QUIET ERROR_QUIET
+  )
+  if(RES EQUAL 0)
+    if(EXISTS ${CMAKE_BINARY_DIR}/_venv/bin/cmake-format)
+      set(CMAKE_FORMAT_PROGRAM ${CMAKE_BINARY_DIR}/_venv/bin/cmake-format)
+    else()
+      message(STATUS "Format.cmake: cmake-format not found, installing cmakelang on the virtual environment")
+      execute_process(
+        COMMAND ${CMAKE_BINARY_DIR}/_venv/bin/pip install cmakelang==0.6.13
+        RESULT_VARIABLE RES
+      )
+      if(RES EQUAL 0)
+        set(CMAKE_FORMAT_PROGRAM ${CMAKE_BINARY_DIR}/_venv/bin/cmake-format)
+      else()
+        message(STATUS "Format.cmake: failed to install cmakelang on the virtual environment")
+      endif()
+    endif()
+  endif()
 endif()
 
 if(CLANG_FORMAT_PROGRAM AND Python_FOUND)
