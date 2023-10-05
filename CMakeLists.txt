@@ -7,7 +7,7 @@ find_package(Python)
 
 if(NOT CMAKE_FORMAT_PROGRAM AND Python_FOUND)
   message(STATUS "Format.cmake: cmake-format not found, installing cmakelang")
-  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install cmakelang)
+  execute_process(COMMAND ${Python_EXECUTABLE} -m pip install cmakelang==0.6.13 )
   find_program(CMAKE_FORMAT_PROGRAM cmake-format)
 endif()
 
