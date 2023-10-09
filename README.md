@@ -17,6 +17,8 @@ To run the targets, invoke CMake with `cmake --build <build directory> --target 
 
 To disable using _cmake_format_ to format CMake files, set the cmake option `FORMAT_SKIP_CMAKE` to a truthy value, e.g. by invoking CMake with `-DFORMAT_SKIP_CMAKE=YES`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
 
+To disable using _clang_format_ to format clang-supported files, set the cmake option `FORMAT_SKIP_CLANG` to a truthy value, e.g. by invoking CMake with `-DFORMAT_SKIP_CLANG=YES`, or enabling the option when [adding the dependency](#how-to-integrate) (recommended).
+
 ## Demo
 
 ![](https://user-images.githubusercontent.com/4437447/66123312-31ec3500-e5d1-11e9-8404-492b8eff8511.gif)
@@ -46,6 +48,8 @@ CPMAddPackage(
   OPTIONS 
       # set to yes skip cmake formatting
       "FORMAT_SKIP_CMAKE NO"
+      # set to yes skip clang formatting
+      "FORMAT_SKIP_CLANG NO"
       # path to exclude (optional, supports regular expressions)
       "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )
