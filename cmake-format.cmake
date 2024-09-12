@@ -34,7 +34,7 @@ string(STRIP ${GIT_TOPLEVEL} GIT_TOPLEVEL)
 
 get_cmake_files(
   GIT_REPOSITORY_DIR ${GIT_TOPLEVEL} OUTPUT_LIST CMAKE_FILES REGEX
-  "\\.cmake$|(^|/)CMakeLists\\.txt$"
+  "\\.cmake$|\\.cmake\\.in$|(^|/)CMakeLists\\.txt$"
 )
 
 separate_arguments(CMAKE_FORMAT_EXTRA_ARGS)
