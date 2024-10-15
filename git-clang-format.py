@@ -105,6 +105,7 @@ def main():
                                     default_extensions),
                  help=('comma-separated list of file extensions to format, '
                        'excluding the period and case-insensitive')),
+  p.add_argument('--ignored-paths', default="",help=('semicolon-separated list of paths to ignore')),
   p.add_argument('-f', '--force', action='store_true',
                  help='allow changes to unstaged files')
   p.add_argument('-p', '--patch', action='store_true',
@@ -141,6 +142,8 @@ def main():
   if opts.verbose >= 1:
     ignored_files = set(changed_lines)
   filter_by_extension(changed_lines, opts.extensions.lower().split(','))
+  if len(opts.ignored_paths) > 0:
+    filter_by_path(changed_lines, opts.ignored_paths.lower().split(';'))
   if opts.verbose >= 1:
     ignored_files.difference_update(changed_lines)
     if ignored_files:
@@ -335,6 +338,19 @@ def filter_by_extension(dictionary, allowed_extensions):
         continue
     if len(base_ext) == 1 or base_ext[1].lower() not in allowed_extensions:
       del dictionary[filename]
+
+def filter_by_path(dictionary, ignored_paths):
+  """Delete every key in `dictionary` that is in ignored path
+
+  `ignored_paths` must be a collection of paths from the git repo root
+  """
+  ignored_paths = frozenset(ignored_paths)
+  for filename in list(dictionary.keys()):
+    for ignored_path in ignored_paths:
+      if not ignored_path.endswith("/"):
+        ignored_path += "/"
+      if filename.startswith(ignored_path):
+        del dictionary[filename]
 
 
 def cd_to_toplevel():
