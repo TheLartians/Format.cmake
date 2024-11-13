@@ -89,7 +89,6 @@ def main():
       'js',  # JavaScript
       'ts',  # TypeScript
       'cs',  # C Sharp
-      'json',  # Json
       'sv', 'svh', 'v', 'vh', # Verilog
       ])
 
