@@ -92,7 +92,6 @@ def main():
       'json',  # Json
       'sv', 'svh', 'v', 'vh', # Verilog
       ])
-      ])
 
   p = argparse.ArgumentParser(
     usage=usage, formatter_class=argparse.RawDescriptionHelpFormatter,
