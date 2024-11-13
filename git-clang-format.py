@@ -79,8 +79,9 @@ def main():
       'c', 'h',  # C
       'm',  # ObjC
       'mm',  # ObjC++
-      'cc', 'cp', 'cpp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl',  # C++
-      'cu',  # CUDA
+      'cc', 'cp', 'cpp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc',  # C++
+      'ccm', 'cppm', 'cxxm', 'c++m',  # C++ Modules
+      'cu', 'cuh', # CUDA
       'hip',  # HIP
       # Other languages that clang-format supports
       'proto', 'protodevel',  # Protocol Buffers
@@ -88,6 +89,9 @@ def main():
       'js',  # JavaScript
       'ts',  # TypeScript
       'cs',  # C Sharp
+      'json',  # Json
+      'sv', 'svh', 'v', 'vh', # Verilog
+      ])
       ])
 
   p = argparse.ArgumentParser(
