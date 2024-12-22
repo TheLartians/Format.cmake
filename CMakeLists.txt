@@ -8,7 +8,7 @@ find_package(Python)
 
 if(CLANG_FORMAT_PROGRAM AND Python_FOUND)
   set(CLANG_FORMAT_COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/git-clang-format.py
-                           --binary=${CLANG_FORMAT_PROGRAM}
+                           --binary=${CLANG_FORMAT_PROGRAM} "--ignored-paths=${CLANG_FORMAT_IGNORED_PATHS}"
   )
   set(GIT_EMPTY_TREE_HASH 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
 
