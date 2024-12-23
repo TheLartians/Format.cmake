@@ -79,7 +79,7 @@ def main():
       'c', 'h',  # C
       'm',  # ObjC
       'mm',  # ObjC++
-      'cc', 'cp', 'cpp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc',  # C++
+      'cc', 'cp', 'cpp', 'ipp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl', # C++
       'ccm', 'cppm', 'cxxm', 'c++m',  # C++ Modules
       'cu', 'cuh', # CUDA
       'hip',  # HIP
