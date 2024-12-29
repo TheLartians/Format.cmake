@@ -25,6 +25,7 @@ Requires Python 2.7 or Python 3
 """
 
 from __future__ import absolute_import, division, print_function
+
 import argparse
 import collections
 import contextlib
@@ -79,10 +80,9 @@ def main():
       'c', 'h',  # C
       'm',  # ObjC
       'mm',  # ObjC++
-      'cc', 'cp', 'cpp', 'ipp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl', # C++
+      'cc', 'cp', 'cpp', 'ipp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl',  # C++
       'ccm', 'cppm', 'cxxm', 'c++m',  # C++ Modules
-      'cu', 'cuh', # CUDA
-      'hip',  # HIP
+      'cu', 'cuh',  # CUDA
       # Other languages that clang-format supports
       'proto', 'protodevel',  # Protocol Buffers
       'java',  # Java
@@ -91,7 +91,7 @@ def main():
       'cs',  # C Sharp
       'sv', 'svh', 'v', 'vh', # Verilog
       'json',  # JSON
-      ])
+  ])
 
   p = argparse.ArgumentParser(
     usage=usage, formatter_class=argparse.RawDescriptionHelpFormatter,

@@ -37,7 +37,7 @@ After [adding CPM.cmake](https://github.com/cpm-cmake/CPM.cmake#adding-cpm), add
 
 ```cmake
 include(cmake/CPM.cmake)
-CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
+CPMAddPackage("gh:TheLartians/Format.cmake@1.8.2")
 ```
 
 #### Advanced configuration
@@ -47,9 +47,9 @@ This package supports optional parameters that you can specify in the CPM.cmake 
 ```CMake
 CPMAddPackage(
   NAME Format.cmake
-  VERSION 1.7.3
+  VERSION 1.8.2
   GITHUB_REPOSITORY TheLartians/Format.cmake
-  OPTIONS 
+  OPTIONS
       # set to yes skip cmake formatting
       "FORMAT_SKIP_CMAKE NO"
       # set to yes skip clang formatting
