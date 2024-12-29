@@ -80,7 +80,7 @@ def main():
       'c', 'h',  # C
       'm',  # ObjC
       'mm',  # ObjC++
-      'cc', 'cp', 'cpp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl',  # C++
+      'cc', 'cp', 'cpp', 'ipp', 'c++', 'cxx', 'hh', 'hpp', 'hxx', 'inc', 'inl',  # C++
       'ccm', 'cppm', 'cxxm', 'c++m',  # C++ Modules
       'cu', 'cuh',  # CUDA
       # Other languages that clang-format supports
@@ -89,9 +89,9 @@ def main():
       'js',  # JavaScript
       'ts',  # TypeScript
       'cs',  # C Sharp
-      'json',  # Json
       'sv', 'svh', 'v', 'vh', # Verilog
-      ])
+      'json',  # JSON
+  ])
 
   p = argparse.ArgumentParser(
     usage=usage, formatter_class=argparse.RawDescriptionHelpFormatter,
